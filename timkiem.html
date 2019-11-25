@@ -775,11 +775,9 @@
         }
 
         var defv = pURL.defv || vlist[0].v, defi = findVI(defv);
-
-
-
+        //
         var vidlist = $('.vid-list'), vid_frame = $('#vid_frame');
-        vid_frame.attr('src', 'http://www.youtube.com/embed/' + defv + '?rel=0&showinfo=0&autohide=1');
+        vid_frame.attr('src', 'http://www.youtube.com/embed/' + defv + '?rel=0&showinfo=0&autohide=1&VQ=HD720');
         //
         function updateTitle(vData) {
             $('.titleyoutube').html('<h2>' + vData.t + '</h2>');
@@ -816,7 +814,7 @@
         vidlist.on("click", ".vid-item", function (evt) {
             var vData = $(this).data('click');
             updateTitle(vData);
-            vid_frame.attr('src', 'http://www.youtube.com/embed/' + vData.v + '?autoplay=1&rel=0&showinfo=0&autohide=1');
+            vid_frame.attr('src', 'http://www.youtube.com/embed/' + vData.v + '?autoplay=1&rel=0&showinfo=0&autohide=1&VQ=HD720');
         });
         //
         //
@@ -866,7 +864,7 @@
             };
             vData = vlist[defi];
             updateTitle(vData);
-            vid_frame.attr('src', 'http://www.youtube.com/embed/' + vData.v + '?autoplay=1&rel=0&showinfo=0&autohide=1');
+            vid_frame.attr('src', 'http://www.youtube.com/embed/' + vData.v + '?autoplay=1&rel=0&showinfo=0&autohide=1&VQ=HD720');
         }
     </script>
 
