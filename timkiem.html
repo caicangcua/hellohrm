@@ -638,20 +638,20 @@
                 pURL[nv[0]] = nv[1] || true;
             }
         }
-        var vlist = [{ v: '5pCP4IMBdig', t: 'title 1', l: 'link1.htm' },
-                    { v: 'wqa6AIbnjkg', t: 'title 2', l: 'link1.htm' },
-                    { v: 'EQaifsI1fwk', t: 'title 3', l: 'link1.htm' },
-                    { v: 'H9uUwifOe6c', t: 'title 4', l: 'link1.htm' },
-                    { v: 'fB8UTheTR7s', t: 'title 5', l: 'link1.htm' },
-                    { v: '0SNhAKyXtC8', t: 'title 6', l: 'link1.htm' },
-                    { v: 'RTHI_uGyfTM', t: 'title 7', l: 'link1.htm' },
-                    { v: 'abQRt6p8T7g', t: 'title 8', l: 'link1.htm' },
-                    { v: 'fpmN9JorFew', t: 'title 9', l: 'link1.htm' },
-                    { v: 'kkYnE6AkyWk', t: 'title 10', l: 'link1.htm' },
-                    { v: '_Tz7KROhuAw', t: 'title 11', l: 'link1.htm' },
-                    { v: 'F1f-gn_mG8M', t: 'title 12', l: 'link1.htm' },
-                    { v: 'fB8UTheTR7s', t: 'title 13', l: 'link1.htm' },
-                    { v: '0SNhAKyXtC8', t: 'title 14', l: 'link1.htm' }];
+        var vlist = [{ id: 'logon', v: '5pCP4IMBdig', t: 'title 1', l: 'logon.htm' },
+                    { id: 'login', v: 'wqa6AIbnjkg', t: 'title 2', l: 'link1.htm' },
+                    { id: 'login', v: 'EQaifsI1fwk', t: 'title 3', l: 'link1.htm' },
+                    { id: 'login', v: 'H9uUwifOe6c', t: 'title 4', l: 'link1.htm' },
+                    { id: 'login', v: 'fB8UTheTR7s', t: 'title 5', l: 'link1.htm' },
+                    { id: 'login', v: '0SNhAKyXtC8', t: 'title 6', l: 'link1.htm' },
+                    { id: 'login', v: 'RTHI_uGyfTM', t: 'title 7', l: 'link1.htm' },
+                    { id: 'login', v: 'abQRt6p8T7g', t: 'title 8', l: 'link1.htm' },
+                    { id: 'login', v: 'fpmN9JorFew', t: 'title 9', l: 'link1.htm' },
+                    { id: 'login', v: 'kkYnE6AkyWk', t: 'title 10', l: 'link1.htm' },
+                    { id: 'login', v: '_Tz7KROhuAw', t: 'title 11', l: 'link1.htm' },
+                    { id: 'login', v: 'F1f-gn_mG8M', t: 'title 12', l: 'link1.htm' },
+                    { id: 'login', v: 'fB8UTheTR7s', t: 'title 13', l: 'link1.htm' },
+                    { id: 'login', v: '0SNhAKyXtC8', t: 'title 14', l: 'link1.htm' }];
     </script>
 </HEAD>
 <body>
@@ -663,7 +663,7 @@
             <div class="vid-container">
                 <iframe id="vid_frame" src="" frameborder="0" allowfullscreen></iframe>
             </div>
-            <div class="titleyoutube"><h2>Demo: Responsive YouTube Player with Scrolling Thumbnail Playlist</h2></div>
+            <div class="titleyoutube"></div>
 
             <div style="">
                 <!-- THE PLAYLIST -->
@@ -763,29 +763,33 @@
 
         };
 
-        var defv = pURL.defv || vlist[0].v;
-        var defi = -1;
-        $.each(vlist, function (index, item) {
-            if (item.v.toString() == defv.toString()) {
-                defi = index;
-                return false;     // breaks the $.each() loop
-            }
-        });
-        //if (defi >= 0) {
-        //    vlist.splice(defi, 1);
-        //};
+        var findVI = function (vid) {
+            var matchI = -1;
+            $.each(vlist, function (index, item) {
+                if (item.v.toString() == vid.toString()) {
+                    matchI = index;
+                    return false;     // breaks the $.each() loop
+                }
+            });
+            return matchI;
+        }
+
+        var defv = pURL.defv || vlist[0].v, defi = findVI(defv);
+
+
+
         var vidlist = $('.vid-list'), vid_frame = $('#vid_frame');
         vid_frame.attr('src', 'http://www.youtube.com/embed/' + defv + '?rel=0&showinfo=0&autohide=1');
         //
         function updateTitle(vData) {
             $('.titleyoutube').html('<h2>' + vData.t + '</h2>');
             setTimeout(function () {
-                if (window.eoapi) {
-                    eoapi.extInvoke("demoAbout", [window.navigator.appVersion, document.URL, JSON.stringify(vData)]);
-                }
-            }, 10);
-            setTimeout(function () {
-                $('#noidung_help').load("helps/" + vData.l + '?v=' + (new Date()).getTime());
+                $('#noidung_help').load("helps/" + vData.l + '?v=' + (new Date()).getTime(), function() {
+                    document.title = vlist[defi].t;
+                    if (window.eoapi) {
+                        eoapi.extInvoke("demoAbout", [window.navigator.appVersion, document.URL, JSON.stringify(vData)]);
+                    }
+                });
             }, 1);
             isOnScreen(vid_frame);
         }
@@ -853,7 +857,16 @@
         doResize();
 
         function eso_comm(param) {
-            document.getElementById('vid_frame').src = 'http://youtube.com/embed/' + param + '?autoplay=1&rel=0&showinfo=0&autohide=1'
+            var atV = findVI(param), vData;
+            if (atV == -1) {
+                defv = pURL.defv || vlist[0].v
+                defi = findVI(defv);
+            } else {
+                defi = atV;
+            };
+            vData = vlist[defi];
+            updateTitle(vData);
+            vid_frame.attr('src', 'http://www.youtube.com/embed/' + vData.v + '?autoplay=1&rel=0&showinfo=0&autohide=1');
         }
     </script>
 
