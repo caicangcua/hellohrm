@@ -626,6 +626,7 @@
                 transform: rotate(360deg);
             }
         }
+
     </style>
     <script type="text/javascript">
         var pURL = {};
@@ -638,7 +639,7 @@
                 pURL[nv[0]] = nv[1] || true;
             }
         }
-        var vlist = [{ id: 'profile', v: '2KVo8kCmrBE', t: 'profile', l: 'logon.htm' }, { id: 'logon', v: '5pCP4IMBdig', t: 'title 1', l: 'logon.htm' },
+        var vlist = [{ id: 'profile', v: 'kzXLBx816Cg', t: 'profile', l: 'logon.htm' }, { id: 'logon', v: 'WhYABKxavoA', t: 'title 1', l: 'logon.htm' },
                     { id: 'login', v: 'wqa6AIbnjkg', t: 'title 2', l: 'link1.htm' },
                     { id: 'login', v: 'EQaifsI1fwk', t: 'title 3', l: 'link1.htm' },
                     { id: 'login', v: 'H9uUwifOe6c', t: 'title 4', l: 'link1.htm' },
@@ -652,6 +653,7 @@
                     { id: 'login', v: 'F1f-gn_mG8M', t: 'title 12', l: 'link1.htm' },
                     { id: 'login', v: 'fB8UTheTR7s', t: 'title 13', l: 'link1.htm' },
                     { id: 'login', v: '0SNhAKyXtC8', t: 'title 14', l: 'link1.htm' }];
+
     </script>
 </HEAD>
 <body>
@@ -661,7 +663,7 @@
 
             <!-- THE YOUTUBE PLAYER -->
             <div class="vid-container">
-                <iframe width="1280" height="720"  id="vid_frame" src="" frameborder="0" allowfullscreen></iframe>
+                <iframe  width="1280" height="720"  id="vid_frame" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="titleyoutube"></div>
 
@@ -739,7 +741,7 @@
 
 
     <script type="text/javascript">
-        //
+
         function isOnScreen(e$l) {
 
             var win = $(window);
@@ -777,8 +779,7 @@
         var defv = pURL.defv || vlist[0].v, defi = findVI(defv);
         //
         var vidlist = $('.vid-list'), vid_frame = $('#vid_frame');
-        //vid_frame.attr('src', 'http://www.youtube.com/embed/' + defv + '?rel=0&showinfo=0&autohide=1');videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG
-        vid_frame.attr('src', 'http://www.youtube.com/embed?listType=playlist&list=PLzBMHVJfetu0nDq2Pz_2LHw9CsDpJM9Rc&rel=0&showinfo=0&autohide=1');//videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG
+        vid_frame.attr('src', 'http://www.youtube.com/embed/' + defv + '?rel=0&showinfo=0&autohide=1');
         //
         function updateTitle(vData) {
             $('.titleyoutube').html('<h2>' + vData.t + '</h2>');
