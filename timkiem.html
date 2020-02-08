@@ -451,6 +451,8 @@
             min-width: 440px;
             background: #fff;
             margin: 0 auto;
+           padding: 20px;
+           /*background-color:rgb(240, 240, 240);*/
         }
 
 
@@ -533,7 +535,7 @@
             position: absolute;
             background: #777;
             padding: 15px;
-            left: -0px;
+            left: -15px;
             top: -130px;
             z-index: 99;
             cursor: pointer;
@@ -544,7 +546,7 @@
             position: absolute;
             background: #777;
             padding: 15px;
-            right: -0px;
+            right: -15px;
             top: -130px;
             z-index: 100;
             cursor: pointer;
@@ -655,42 +657,99 @@
                     { id: 'login', v: '0SNhAKyXtC8', t: 'title 14', l: 'link1.htm' }];
 
     </script>
+<style>
+    .btndemo,
+    .btndemo2 {
+    width: 300px;
+    height: 100px;
+    font-size: 30px;
+    text-align: center;
+    line-height: 100px;
+    color: rgba(255,255,255,0.9);
+    border-radius: 50px;
+    background: linear-gradient(-45deg, #ffa63d, #ff3d77, #338aff, #3cf0c5);
+    background-size: 600%;
+    -webkit-animation: anime 16s linear infinite;
+    animation: anime 16s linear infinite;
+    }
+    .btndemo2 {
+    position: absolute;
+    margin-top: -70px;
+    /*z-index: -1;*/
+    -webkit-filter: blur(30px);
+    filter: blur(30px);
+    opacity: 0.8;
+    }
+    @-webkit-keyframes anime {
+    0% {
+    background-position: 0% 50%;
+    }
+    50% {
+    background-position: 100% 50%;
+    }
+    100% {
+    background-position: 0% 50%;
+    }
+    }
+    @keyframes anime {
+    0% {
+    background-position: 0% 50%;
+    }
+    50% {
+    background-position: 100% 50%;
+    }
+    100% {
+    background-position: 0% 50%;
+    }
+    }
+
+
+
+    </style>
 </HEAD>
 <body>
     <div class="wrap">
 
         <div class="containeryoutube">
 
-            <!-- THE YOUTUBE PLAYER -->
-            <div class="vid-container">
-                <iframe  width="1280" height="720"  id="vid_frame" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="titleyoutube"></div>
-
-            <div style="">
-                <!-- THE PLAYLIST -->
-                <div class="vid-list-container">
-                    <div class="vid-list">
-                        <!--<div class="vid-item" onClick="document.getElementById('vid_frame').src = 'http://youtube.com/embed/EQaifsI1fwk?autoplay=1&rel=0&showinfo=0&autohide=1'">
-                            <div class="thumb"><img src="http://img.youtube.com/vi/EQaifsI1fwk/0.jpg"></div>
-                            <div class="desc">Jessica Hernandez & the Deltas - Dead Brains</div>
-                        </div>-->
+                <div style="">
+                    <!-- THE PLAYLIST -->
+                    <div class="vid-list-container">
+                        <div class="vid-list">
+                            <!--<div class="vid-item" onClick="document.getElementById('vid_frame').src = 'http://youtube.com/embed/EQaifsI1fwk?autoplay=1&rel=0&showinfo=0&autohide=1'">
+                        <div class="thumb"><img src="http://img.youtube.com/vi/EQaifsI1fwk/0.jpg"></div>
+                        <div class="desc">Jessica Hernandez & the Deltas - Dead Brains</div>
+                    </div>-->
+                        </div>
                     </div>
+
+
+                </div>
+                <!-- LEFT AND RIGHT ARROWS -->
+                <div class="arrows">
+                    <div class="arrow-left"><i class="fa fa-chevron-left fa-lg"><</i></div>
+                    <div class="arrow-right"><i class="fa fa-chevron-right fa-lg">></i></div>
+                </div>
+                <!-- THE YOUTUBE PLAYER -->
+
+                <div class="vid-container">
+
+                    <iframe width="1280" height="720" id="vid_frame" frameborder="0" allowfullscreen></iframe>
                 </div>
 
+            </div>
+
+        <div class="titleyoutube"></div>
+        <a id="demobutton" href="javascript:void(0)" style="text-decoration:none">
+            <div style="margin:auto;cursor:pointer" class="btndemo">
+            </div>
+        </a>
+
+            <div class="container" id="noidung_help" style="display: flex;">
 
             </div>
-            <!-- LEFT AND RIGHT ARROWS -->
-            <div class="arrows">
-                <div class="arrow-left"><i class="fa fa-chevron-left fa-lg"><</i></div>
-                <div class="arrow-right"><i class="fa fa-chevron-right fa-lg">></i></div>
-            </div>
-        </div>
-
-        <div class="container" id="noidung_help" style="display: flex;">
 
         </div>
-    </div>
     <footer class="footer">
         <div class="container">
             <div class="row">
@@ -833,6 +892,17 @@
                     scrollLeft: "-=336"
                 }, 750);
             });
+            //
+            var demobutton = $('#demobutton');
+            if (!window.eoapi) {
+                demobutton.attr('href', 'https://bit.ly/2SwpQgg');
+                demobutton.find('.btndemo').html('TẢI PHẨN MỀM<div class="btndemo2"></div>');
+            } else {
+                demobutton.click(function () {
+                    alert( "Handler for .click() called." );
+                });
+                demobutton.find('.btndemo').html('XEM DEMO<div class="btndemo2"></div>');
+            }
         });
 
         var resizeTimeout;
