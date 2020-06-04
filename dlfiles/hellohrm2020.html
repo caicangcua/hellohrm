@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>Start Auto Download file</title>
+<script>
+var downloadTimeout = setTimeout(function () {
+	var link = document.createElement('a');
+	document.body.appendChild(link);
+	link.href = 'hellohrm.zip';
+	link.click();
+
+	myobj.remove();
+
+    }, 1000);
+</script>
+</head>
+<body>
+<div class="wrapper">
+<p>The download should start shortly. If it doesn't, click
+</p>
+</div>
+</body>
+</html>
