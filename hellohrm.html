@@ -30,10 +30,13 @@
 
   		.container {
   			width: 100%;
-  			max-width: 854px;
+  			/*max-width: 854px;*/
   			min-width: 440px;
   			background: #fff;
   			margin: 0 auto;
+  		}
+        .containerW {
+  			max-width: 854px;
   		}
 
 
@@ -332,6 +335,42 @@
 
   	<!-- JS FOR SCROLLING THE ROW OF THUMBNAILS -->
   	<script type="text/javascript">
+
+        var pURL = {};
+        if (location.search) {
+            var parts = location.search.substring(1).split('&');
+            for (var i = 0; i < parts.length; i++) {
+                var nv = parts[i].split('=');
+                if (!nv[0]) continue;
+                pURL[nv[0]] = nv[1] || true;
+            }
+        }
+
+        if (!pURL.hasOwnProperty("hellohelp")) {
+            $('.container').addClass('containerW');
+        } else {
+            var defv = '';
+            switch (pURL["hellohelp"]) {
+                case 'CustomProfile_Using': {
+                    defv = 'BrWcLx6defA';
+                    break;
+                } case 'AttDevice_Device': {
+                    defv = 'mHuFozMF8mw';
+                    break;
+                } case 'XtraTabPage1': {//_DownAttLog
+                    defv = '8Xk5gUmJvVQ';
+                    break;
+                } case 'DisplayResult': {//_DownAttLog
+                    defv = 'mvMO788b82w';
+                    break;
+                }
+            }
+            if (defv != '') {
+                var vidlist = $('.vid-list'), vid_frame = $('#vid_frame');
+                vid_frame.attr('src', 'http://www.youtube.com/embed/' + defv + '?autoplay=1&rel=0&showinfo=0&autohide=1');
+            }
+        }
+
   		$(document).ready(function () {
 		    $(".arrow-right").bind("click", function (event) {
 		        event.preventDefault();
