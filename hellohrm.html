@@ -192,27 +192,27 @@
               <div class="vid-list-container">
                   <div class="vid-list">
 
-                      <div class="vid-item" onClick="document.getElementById('vid_frame').src = 'http://youtube.com/embed/vlnGtotgJi8?autoplay=1&rel=0&showinfo=0&autohide=1'">
+                      <div class="vid-item">
                           <div class="thumb"><img src="http://img.youtube.com/vi/vlnGtotgJi8/0.jpg"></div>
                           <div class="desc">Cài Đặt Phần Mềm Hello-HRM</div>
                       </div>
 
-                      <div class="vid-item" onClick="document.getElementById('vid_frame').src = 'http://youtube.com/embed/mHuFozMF8mw?autoplay=1&rel=0&showinfo=0&autohide=1'">
+                      <div class="vid-item">  <!--onClick="document.getElementById('vid_frame').src = 'http://youtube.com/embed/mHuFozMF8mw?autoplay=1&rel=0&showinfo=0&autohide=1'"-->
                           <div class="thumb"><img src="http://img.youtube.com/vi/mHuFozMF8mw/0.jpg"></div>
                           <div class="desc">Quản Lý Thiết Bị Chấm Công - Tải Log Gạt Thẻ</div>
                       </div>
 
-                      <div class="vid-item" onClick="document.getElementById('vid_frame').src = 'http://youtube.com/embed/BrWcLx6defA?autoplay=1&rel=0&showinfo=0&autohide=1'">
+                      <div class="vid-item"> <!--onClick="document.getElementById('vid_frame').src = 'http://youtube.com/embed/BrWcLx6defA?autoplay=1&rel=0&showinfo=0&autohide=1'"-->
                           <div class="thumb"><img src="http://img.youtube.com/vi/BrWcLx6defA/0.jpg"></div>
                           <div class="desc">Quản Lý Hồ Sơ Nhân Viên</div>
                       </div>
 
-                      <div class="vid-item" onClick="document.getElementById('vid_frame').src = 'http://youtube.com/embed/8Xk5gUmJvVQ?autoplay=1&rel=0&showinfo=0&autohide=1'">
+                      <div class="vid-item"> <!--onClick="document.getElementById('vid_frame').src = 'http://youtube.com/embed/8Xk5gUmJvVQ?autoplay=1&rel=0&showinfo=0&autohide=1'"-->
                           <div class="thumb"><img src="http://img.youtube.com/vi/8Xk5gUmJvVQ/0.jpg"></div>
                           <div class="desc">Hướng Dẫn Thao Tác Kiểm Công</div>
                       </div>
 
-                      <div class="vid-item" onClick="document.getElementById('vid_frame').src='http://youtube.com/embed/mvMO788b82w?autoplay=1&rel=0&showinfo=0&autohide=1'">
+                      <div class="vid-item">  <!--onClick="document.getElementById('vid_frame').src='http://youtube.com/embed/mvMO788b82w?autoplay=1&rel=0&showinfo=0&autohide=1'"-->
                           <div class="thumb"><img src="http://img.youtube.com/vi/mvMO788b82w/0.jpg"></div>
                           <div class="desc">Hướng dẫn phương pháp kiểm thẻ bằng biểu đồ thời gian</div>
                       </div>
@@ -335,8 +335,13 @@
 
   	<!-- JS FOR SCROLLING THE ROW OF THUMBNAILS -->
   	<script type="text/javascript">
+        var vlist = [{ id: 'CustomProfile_Using', v: 'BrWcLx6defA', t: 'HƯỚNG DẪN SỬ DỤNG CHỨC NĂNG HỒ SƠ NHÂN VIÊN', l: 'logon.htm' },
+            { id: 'AttDevice_Device', v: 'mHuFozMF8mw', t: 'HƯỚNG DẪN QUẢN LÝ THIẾT BỊ CHẤM CÔNG', l: 'logon.htm' },
+            { id: 'XtraTabPage1', v: '8Xk5gUmJvVQ', t: 'HƯỚNG DẪN THAO TÁC KIỂM CÔNG', l: 'link1.htm' },
+            { id: 'DisplayResult', v: 'mvMO788b82w', t: 'MÔ TẢ KIỂM CÔNG BẰNG BIỂU ĐỒ THỜI GIAN', l: 'link1.htm' },
+            { id: 'SETUP', v: 'vlnGtotgJi8', t: 'HƯỚNG DẪN CÀI ĐẶT PHẦN MỀM HELLO-HRM', l: 'link1.htm' }];
 
-        var pURL = {};
+        var pURL = {}, defi=0;
         if (location.search) {
             var parts = location.search.substring(1).split('&');
             for (var i = 0; i < parts.length; i++) {
@@ -346,29 +351,55 @@
             }
         }
 
+        var findVI = function (vid,findProp) {
+            var matchI = -1;
+            $.each(vlist, function (index, item) {
+                if (item[findProp].toString() == vid.toString()) {
+                    matchI = index;
+                    return false;     // breaks the $.each() loop
+                }
+            });
+            return matchI;
+        }
+
+        function updateTitle() {
+            if (window.eoapi) {
+                eoapi.extInvoke("demoAbout", [window.navigator.appVersion, document.URL, JSON.stringify(vlist[defi])]);
+            }
+        }
+
         if (!pURL.hasOwnProperty("hellohelp")) {
             $('.container').addClass('containerW');
         } else {
-            var defv = '';
-            switch (pURL["hellohelp"]) {
-                case 'CustomProfile_Using': {
-                    defv = 'BrWcLx6defA';
-                    break;
-                } case 'AttDevice_Device': {
-                    defv = 'mHuFozMF8mw';
-                    break;
-                } case 'XtraTabPage1': {//_DownAttLog
-                    defv = '8Xk5gUmJvVQ';
-                    break;
-                } case 'DisplayResult': {//_DownAttLog
-                    defv = 'mvMO788b82w';
-                    break;
-                }
-            }
+            var defv ='';
+            var atV = findVI(pURL["hellohelp"],'id');
+            if (atV == -1) {
+                defi = 0;
+            } else {
+                defi = atV;
+            };
+            defv = vlist[defi].v
+
+            //switch (pURL["hellohelp"]) {
+            //    case 'CustomProfile_Using': {
+            //        defv = 'BrWcLx6defA';
+            //        break;
+            //    } case 'AttDevice_Device': {
+            //        defv = 'mHuFozMF8mw';
+            //        break;
+            //    } case 'XtraTabPage1': {//_DownAttLog
+            //        defv = '8Xk5gUmJvVQ';
+            //        break;
+            //    } case 'DisplayResult': {//_DownAttLog
+            //        defv = 'mvMO788b82w';
+            //        break;
+            //    }
+            //}
             if (defv != '') {
                 var vidlist = $('.vid-list'), vid_frame = $('#vid_frame');
                 vid_frame.attr('src', 'http://www.youtube.com/embed/' + defv + '?autoplay=1&rel=0&showinfo=0&autohide=1');
-            }
+            };
+            updateTitle();
         }
 
   		$(document).ready(function () {
@@ -384,6 +415,23 @@
 		            scrollLeft: "-=336"
 		        }, 750);
 		    });
+            //
+		    $('.vid-list').on("click", ".vid-item", function (evt) {
+		        var vData = $(this).find('img').attr('src').split('/');
+		        var defv = '';
+		        var atV = findVI(vData[vData.length - 2], 'v');
+		        if (atV == -1) {
+		            defi = 0;
+		        } else {
+		            defi = atV;
+		        };
+		        defv = vlist[defi].v
+                //
+		        $('#vid_frame').attr('src', 'http://www.youtube.com/embed/' + defv + '?autoplay=1&rel=0&showinfo=0&autohide=1');
+		        //
+		        updateTitle();
+		    });
+
   		});
 
   		var resizeTimeout;
@@ -408,16 +456,15 @@
   		doResize();
 
   		function eso_comm(param) {
-  		    //var atV = findVI(param), vData;
-  		    //if (atV == -1) {
-  		    //    defv = pURL.defv || vlist[0].v
-  		    //    defi = findVI(defv);
-  		    //} else {
-  		    //    defi = atV;
-  		    //};
-  		    //vData = vlist[defi];
-  		    //updateTitle(vData);
-  		    //vid_frame.attr('src', 'http://www.youtube.com/embed/' + vData.v + '?autoplay=1&rel=0&showinfo=0&autohide=1');
+  		    var atV = findVI(param,'v'), vData;
+  		    if (atV == -1) {
+  		        defi = 0
+  		    } else {
+  		        defi = atV;
+  		    };
+  		    vData = vlist[defi];
+  		    vid_frame.attr('src', 'http://www.youtube.com/embed/' + vData.v + '?autoplay=1&rel=0&showinfo=0&autohide=1');
+  		    updateTitle();
   		}
 
   	</script>
