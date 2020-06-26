@@ -164,28 +164,86 @@
 			}
 			.arrow-left {
 				left: 0;
-				top: -17px!important;
+				top: -25px!important;
 			}
 
 			.arrow-right {
 				right: 0;
-				top: -17px!important;
+				top: -25px!important;
 			}
 		}
   	</style>
+      <style>
+          .btndemo,
+          .btndemo2 {
+              width: 300px;
+              height: 100px;
+              font-size: 30px;
+              text-align: center;
+              line-height: 100px;
+              color: rgba(255,255,255,0.9);
+              border-radius: 50px;
+              background: linear-gradient(-45deg, #ffa63d, #ff3d77, #338aff, #3cf0c5);
+              background-size: 600%;
+              -webkit-animation: anime 16s linear infinite;
+              animation: anime 16s linear infinite;
+          }
 
+          .btndemo2 {
+              position: absolute;
+              margin-top: -70px;
+              /*z-index: -1;*/
+              -webkit-filter: blur(30px);
+              filter: blur(30px);
+              opacity: 0.8;
+          }
+
+          @-webkit-keyframes anime {
+              0% {
+                  background-position: 0% 50%;
+              }
+
+              50% {
+                  background-position: 100% 50%;
+              }
+
+              100% {
+                  background-position: 0% 50%;
+              }
+          }
+
+          @keyframes anime {
+              0% {
+                  background-position: 0% 50%;
+              }
+
+              50% {
+                  background-position: 100% 50%;
+              }
+
+              100% {
+                  background-position: 0% 50%;
+              }
+          }
+      </style>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
   </head>
 
   <body>
-  	<div class="container">
+      <div class="container">
 
-  		<!-- THE YOUTUBE PLAYER -->
-  		<div class="vid-container">
-		    <iframe id="vid_frame" src="http://www.youtube.com/embed/mHuFozMF8mw?rel=0&showinfo=0&autohide=1" frameborder="0" width="560" height="315" allowfullscreen></iframe>
-		</div>
-        <div class="title"><h2>Hướng dẫn sử dụng phần mềm chấm công, tính lương, nhân sự Hello-HRM</h2></div>
+          <!-- THE YOUTUBE PLAYER -->
+          <div class="vid-container">
+              <iframe id="vid_frame" src="http://www.youtube.com/embed/mHuFozMF8mw?rel=0&showinfo=0&autohide=1" frameborder="0" width="560" height="315" allowfullscreen></iframe>
+          </div>
+          <div class="title"><h2>Hướng dẫn sử dụng phần mềm chấm công, tính lương, nhân sự Hello-HRM</h2></div>
+
+
+          <div class="container" id="noidung_help" style="display: flex;">
+
+          </div>
+
 
           <div style="">
               <!-- THE PLAYLIST -->
@@ -324,7 +382,13 @@
               <div class="arrow-left"><i class="fa fa-chevron-left fa-lg"><</i></div>
               <div class="arrow-right"><i class="fa fa-chevron-right fa-lg">></i></div>
           </div>
-  	</div>
+</div>
+      <div style="padding:30px">
+          <a id="demobutton" href="javascript:void(0)" style="text-decoration:none">
+              <div style="margin:auto;cursor:pointer" class="btndemo">
+              </div>
+          </a>
+      </div>
 
   	<!--<div class="caption"><a href="http://www.woosterwebdesign.com/responsive-youtube-player-with-playlist/">Các Chủ Đề Liên Quan</a></div>
 
@@ -434,6 +498,14 @@
 		        updateTitle();
 		    });
 
+
+		    var demobutton = $('#demobutton');
+		    if (!window.eoapi) {
+		        demobutton.attr('href',  'https://bit.ly/2MuoksB');
+		        demobutton.find('.btndemo').html('TẢI PHẨN MỀM<div class="btndemo2"></div>');
+		    } else {
+		        demobutton.parent().remove();
+		    }
   		});
 
   		var resizeTimeout;
