@@ -235,7 +235,7 @@
 
           <!-- THE YOUTUBE PLAYER -->
           <div class="vid-container">
-              <iframe id="vid_frame" src="http://www.youtube.com/embed/d-7WN08MdLU?rel=0&showinfo=0&autohide=1" frameborder="0" width="1280" height="720" allowfullscreen allow="autoplay"></iframe>
+              <iframe id="vid_frame" src="http://www.youtube.com/embed/d-7WN08MdLU?rel=0&showinfo=0&autohide=1&start=0" frameborder="0" width="1280" height="720" allowfullscreen allow="autoplay"></iframe>
           </div>
           <div class="title"><h2>Hướng dẫn sử dụng phần mềm chấm công, tính lương, nhân sự Hello-HRM</h2></div>
 
@@ -440,7 +440,7 @@
         if (!pURL.hasOwnProperty("hellohelp")) {
             $('.container').addClass('containerW');
             if (pURL.hasOwnProperty("v")) {
-                $('#vid_frame').attr('src', 'http://www.youtube.com/embed/' + pURL['v'] + '?autoplay=1&rel=0&showinfo=0&autohide=1');
+                $('#vid_frame').attr('src', 'http://www.youtube.com/embed/' + pURL['v'] + '?autoplay=1&rel=0&showinfo=0&autohide=1&start=0');
             };
         } else {
             var defv ='';
@@ -469,7 +469,7 @@
             //}
             if (defv != '') {
                 var vidlist = $('.vid-list'), vid_frame = $('#vid_frame');
-                vid_frame.attr('src', 'http://www.youtube.com/embed/' + defv + '?autoplay=1&rel=0&showinfo=0&autohide=1');
+                vid_frame.attr('src', 'http://www.youtube.com/embed/' + defv + '?autoplay=1&rel=0&showinfo=0&autohide=1&start=0');
             };
             updateTitle();
         }
@@ -499,7 +499,7 @@
 		        };
 		        defv = vlist[defi].v
                 //
-		        $('#vid_frame').attr('src', 'http://www.youtube.com/embed/' + defv + '?autoplay=1&rel=0&showinfo=0&autohide=1');
+		        $('#vid_frame').attr('src', 'http://www.youtube.com/embed/' + defv + '?autoplay=1&rel=0&showinfo=0&autohide=1&start=0');
 		        //
 		        updateTitle();
 		    });
@@ -543,7 +543,7 @@
   		        defi = atV;
   		    };
   		    vData = vlist[defi];
-  		    vid_frame.attr('src', 'http://www.youtube.com/embed/' + vData.v + '?autoplay=1&rel=0&showinfo=0&autohide=1');
+  		    vid_frame.attr('src', 'http://www.youtube.com/embed/' + vData.v + '?autoplay=1&rel=0&showinfo=0&autohide=1&start=0');
   		    updateTitle();
   		}
 
